@@ -256,22 +256,33 @@ void lcdTestPattern(void)
   }
 }
 
+void crt_wait(){
+      
+  tft.fillRect(0, 24, 128, 32, BLACK);
+  tft.setCursor(8, 32);
+  tft.print("  .");
+  delay(1500);
+  tft.print(" .");
+  delay(1500);
+  tft.print(" .");
+  delay(1500);
+}
+
 void crt_greeting(){
   //tft.fillRect(0, 0, 128, 128, BLACK);
+  tft.setCursor(10, 0);
   tft.fillScreen(BLACK);
   tft.setTextSize(2);
   tft.setTextColor(GREEN);
-  //tft.print(p, 6);
-  //tft.setTextSize(2);
+
   tft.println(" ");
   tft.println("==========");
   tft.println("  hello! ");
   tft.println("==========");
   tft.println(" ");
   tft.println(" \\(^o^)/");
-  
-  //testdrawtext("what even are you?", WHITE);
-  delay(500);
+  delay(3000);
+  tft.fillRect(0, 64, 128, 128, BLACK);
 }
 
 void crt_testsequence(){
@@ -337,7 +348,6 @@ void crt_setup() {
   Serial.begin(9600);
   Serial.print("hello!");
   tft.begin();
-
   Serial.println("init");
 
   // You can optionally rotate the display by running the line below.

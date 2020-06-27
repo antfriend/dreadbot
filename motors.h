@@ -4,8 +4,8 @@
 CytronMD motor1(PWM_DIR, 5, 4);  //Signed Magnitude PWM 1 = Pin 5, DIR 1 = Pin 4.
 CytronMD motor2(PWM_DIR, 6, 7); //Signed Magnitude PWM 2 = Pin 6, DIR 2 = Pin 7.
 
-int halfspeed = 127;
-int fullspeed = 255;
+int motor_halfspeed = 127;
+int motor_fullspeed = 255;
 
 
 void forward(int howfast){
@@ -56,14 +56,14 @@ void sequence1(int howfast){
 }
 
 void step_forward_right(){
-  motor1.setSpeed(fullspeed);
+  motor1.setSpeed(motor_fullspeed);
   delay(100);
   stop();
   delay(100);
 }
 
 void step_forward_left(){
-  motor2.setSpeed(fullspeed);
+  motor2.setSpeed(motor_fullspeed);
   delay(100);
   stop();  
   delay(100);
