@@ -3,7 +3,7 @@
 //https://docs.google.com/document/d/1EiQAE_9VpDDm4rjZrySAoGjQldJnTk6rJIsUkqCT37w/view
 CytronMD motor1(PWM_DIR, 5, 4);  //Signed Magnitude PWM 1 = Pin 5, DIR 1 = Pin 4.
 CytronMD motor2(PWM_DIR, 6, 7); //Signed Magnitude PWM 2 = Pin 6, DIR 2 = Pin 7.
-
+int motor_slowspeed = 96;
 int motor_halfspeed = 127;
 int motor_fullspeed = 255;
 

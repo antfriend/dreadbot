@@ -257,15 +257,14 @@ void lcdTestPattern(void)
 }
 
 void crt_wait(){
-      
   tft.fillRect(0, 24, 128, 32, BLACK);
   tft.setCursor(8, 32);
   tft.print("  .");
-  delay(1500);
+  delay(1000);
   tft.print(" .");
-  delay(1500);
+  delay(1000);
   tft.print(" .");
-  delay(1500);
+  delay(1000);
 }
 
 void crt_greeting(){
@@ -283,6 +282,13 @@ void crt_greeting(){
   tft.println(" \\(^o^)/");
   delay(3000);
   tft.fillRect(0, 64, 128, 128, BLACK);
+}
+
+void crt_message_line(String message_line){
+  //tft.setTextColor(GREEN);
+  tft.fillRect(0, 24, 128, 32, BLACK);
+  tft.setCursor(8, 32);
+  tft.println(message_line);
 }
 
 void crt_testsequence(){
