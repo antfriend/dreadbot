@@ -57,16 +57,30 @@ void sequence1(int howfast){
 
 void step_forward_right(){
   motor1.setSpeed(motor_fullspeed);
-  delay(100);
+  delay(60);
   stop();
-  delay(100);
+  delay(10);
 }
 
 void step_forward_left(){
   motor2.setSpeed(motor_fullspeed);
-  delay(100);
+  delay(60);
   stop();  
-  delay(100);
+  delay(10);
+}
+
+void step_backward_right(){
+  motor1.setSpeed(-motor_fullspeed);
+  delay(60);
+  stop();
+  delay(10);
+}
+
+void step_backward_left(){
+  motor2.setSpeed(-motor_fullspeed);
+  delay(60);
+  stop();  
+  delay(10);
 }
 
 void testloop(){

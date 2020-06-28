@@ -12,11 +12,22 @@
 // int motor_fullspeed = 255;
 
 void setup() {
-  behavior_shake(8,20,motor_halfspeed);
-  crt_setup() ;
-  crt_greeting();
-  //step_forward_right();
 
+  crt_setup() ;
+  behavior_shake(40,10,motor_fullspeed);//hum
+  behavior_shake(40,5,motor_fullspeed);//hum
+  crt_greeting();
+  behavior_shake(40,12,motor_fullspeed);//
+  behavior_shake(40,14,motor_fullspeed);//
+  behavior_shake(40,16,motor_fullspeed);//
+  behavior_shake(50,20,motor_fullspeed);//machine gun
+  behavior_shake(25,40,motor_fullspeed);//washing machine
+  blink();
+  walk_forward(1);
+  blink();
+  walk_forward(2);
+  blink();
+  walk_backward(3);
 }
 
 void loop() {
@@ -62,8 +73,28 @@ void random_delay(){
   delay(random(1000,10000));
 }
 
+void walk_forward(int how_many_steps){
+  for (int i = 0; i < how_many_steps; i++)
+  {
+    step_forward_right();
+    delay(250);
+    step_forward_left();
+    delay(250);
+  }
+}
+
+void walk_backward(int how_many_steps){
+  for (int i = 0; i < how_many_steps; i++){
+    step_backward_right();
+    delay(250);
+    step_backward_left();
+    delay(250);
+  }
+}
+
 void check_right(){
-    right(motor_halfspeed);
+    crt_message_line("right");
+    right(motor_fullspeed);
     delay(50);
     stop();
     delay(100);
@@ -71,8 +102,8 @@ void check_right(){
 
 void check_left(){
     crt_message_line("left");
-    left(motor_slowspeed);
-    delay(1000);
+    left(motor_fullspeed);
+    delay(50);
     stop();
     delay(100);
     crt_message_line("   . .");
@@ -81,14 +112,11 @@ void check_left(){
     delay(500);
     crt_message_line("   . .");
     delay(500);
-    right(motor_slowspeed);
-    delay(1000);
+    right(motor_fullspeed);
+    delay(50);
     stop();
     crt_message_line(" . .");
     delay(100);
-    // left(90);
-    // delay(500);
-    // stop();
 }
 
 void behavior_shake(int shaketimes, int turn_duration, int turn_speed){

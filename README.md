@@ -1,4 +1,6 @@
 # dreadbot
+<https://www.youtube.com/watch?v=qhB5jYP6gNw>
+
 
 ## parts
 3D printed treads in flexible filament 

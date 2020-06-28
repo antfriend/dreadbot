@@ -267,28 +267,23 @@ void crt_wait(){
   delay(1000);
 }
 
-void crt_greeting(){
-  //tft.fillRect(0, 0, 128, 128, BLACK);
-  tft.setCursor(10, 0);
-  tft.fillScreen(BLACK);
-  tft.setTextSize(2);
-  tft.setTextColor(GREEN);
-
-  tft.println(" ");
-  tft.println("==========");
-  tft.println("  hello! ");
-  tft.println("==========");
-  tft.println(" ");
-  tft.println(" \\(^o^)/");
-  delay(3000);
+void crt_clear_bottom_half(){
   tft.fillRect(0, 64, 128, 128, BLACK);
+}
+
+void crt_clear_message_line(){
+  tft.fillRect(0, 24, 128, 32, BLACK);
+}
+
+void crt_simple_message_line(String message_line){
+  tft.setCursor(8, 32);
+  tft.println(message_line);
 }
 
 void crt_message_line(String message_line){
   //tft.setTextColor(GREEN);
-  tft.fillRect(0, 24, 128, 32, BLACK);
-  tft.setCursor(8, 32);
-  tft.println(message_line);
+  crt_clear_message_line();
+  crt_simple_message_line(message_line);
 }
 
 void crt_testsequence(){
@@ -309,7 +304,7 @@ void crt_testsequence(){
   delay(100);
 
   tft.fillScreen(BLACK);
-  testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", WHITE);
+  //testdrawtext("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur adipiscing ante sed nibh tincidunt feugiat. Maecenas enim massa, fringilla sed malesuada et, malesuada sit amet turpis. Sed porttitor neque ut ante pretium vitae malesuada nunc bibendum. Nullam aliquet ultrices massa eu hendrerit. Ut sed nisi lorem. In vestibulum purus a tortor imperdiet posuere. ", WHITE);
   delay(500);
 
   // tft print function!
@@ -364,4 +359,61 @@ void crt_setup() {
   // for rendering the test pattern talks directly to the display and
   // ignores any rotation.
 
+}
+
+void blink(){
+  crt_message_line("  o   o");
+  delay(1000);
+  crt_simple_message_line("  -   -");
+  delay(10);
+  crt_message_line("  o   o");
+  delay(500);
+  crt_simple_message_line("  -   -");
+  delay(10);
+  crt_message_line("  o   o");
+  delay(1000);
+}
+
+void look_left(){
+  crt_message_line("    o   o");
+}
+
+void look_middle(){
+  crt_message_line("  o   o");
+}
+
+void look_right(){
+  crt_message_line("o   o");
+}
+
+void crt_greeting(){
+  //tft.fillRect(0, 0, 128, 128, BLACK);
+  tft.setCursor(10, 0);
+  tft.fillScreen(BLACK);
+  tft.setTextSize(2);
+  tft.setTextColor(GREEN);
+
+  tft.println(" ");
+  tft.println("==========");
+  tft.println("  hello! ");
+  tft.println("==========");
+  tft.println(" ");
+  tft.println(" \\(^o^)/");
+  delay(2000);
+  crt_clear_bottom_half();
+
+  look_middle();
+  delay(1000);
+
+  look_right();
+  delay(1000);
+
+  look_middle();
+  delay(1000);
+
+  look_left();
+  delay(1000);
+  blink();
+
+  
 }
