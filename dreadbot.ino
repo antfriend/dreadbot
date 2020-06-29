@@ -20,14 +20,23 @@ void setup() {
   behavior_shake(40,12,motor_fullspeed);//
   behavior_shake(40,14,motor_fullspeed);//
   behavior_shake(40,16,motor_fullspeed);//
-  behavior_shake(50,20,motor_fullspeed);//machine gun
-  behavior_shake(25,40,motor_fullspeed);//washing machine
+  //behavior_shake(50,20,motor_fullspeed);//machine gun
+  //behavior_shake(25,40,motor_fullspeed);//washing machine
   blink();
   walk_forward(1);
   blink();
   walk_forward(2);
   blink();
   walk_backward(3);
+  blink();
+  spin_right(12);
+  blink();
+  blink();
+  blink();
+  spin_left(12);
+  blink();
+  blink();
+  blink();
 }
 
 void loop() {
@@ -71,6 +80,24 @@ void sequence1(){
 
 void random_delay(){
   delay(random(1000,10000));
+}
+
+void spin_right(int how_many){
+  for (size_t i = 0; i < how_many; i++)
+  {
+    right(motor_fullspeed);
+    delay(60);
+    stop();
+  }
+}
+
+void spin_left(int how_many){
+  for (size_t i = 0; i < how_many; i++)
+  {
+    left(motor_fullspeed);
+    delay(60);
+    stop();
+  }
 }
 
 void walk_forward(int how_many_steps){
