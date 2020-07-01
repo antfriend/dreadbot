@@ -14,9 +14,6 @@ void forward(int howfast){
 }
 
 void backward(int howfast){
-  if(howfast > 127){
-    howfast = 127;
-  }
   motor1.setSpeed(-howfast);
   motor2.setSpeed(-howfast);
 }

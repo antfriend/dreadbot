@@ -1,25 +1,98 @@
+
+#include "motors.h"
+#include "crt.h"
+#include "sensors.h"
+
 /*******************************************************************************
 
       DREADBOT
 
  *******************************************************************************/
 
-#include "motors.h"
-#include "crt.h"
-
 // int motor_slowspeed = 96;
 // int motor_halfspeed = 127;
 // int motor_fullspeed = 255;
 
+String interpret_d(int d){
+  String d_result = String(d);
+  if(d <= 50){
+    d_result = "far";
+  }
+  if(d > 500){
+    d_result = "near";
+  }
+  return d_result;
+}
+
+String interpret_color(int d){
+  String d_result = String(d);
+  if(d <= 50){
+    d_result = "far";
+  }
+  if(d > 500){
+    d_result = "near";
+  }
+  return d_result;
+}
+
+void front_to_color(){
+
+  for (size_t i = 0; i < 1000; i++)
+  {
+    int d;
+    d = forward_distance();
+    
+    if(d <= 50){
+      //"far"
+      tft.fillCircle(64, 64, 64, BLUE);
+      //tft.fillScreen(BLUE);
+      continue;
+    }
+    if(d > 500){
+      //"near"
+      
+      backward(motor_fullspeed);
+      tft.fillCircle(64, 64, 32, RED);
+      //delay(250);
+      stop();
+      continue;
+    }
+    //draw a green circle
+    int rad = map(d,50,500,1,64);
+    tft.drawCircle(64, 64, rad, GREEN);
+    tft.drawCircle(64, 64, rad+1, BLACK);
+    tft.drawCircle(64, 64, rad-1, BLACK);
+    delay(16);//60 frames second
+  }
+}
+
 void setup() {
 
   crt_setup() ;
+  sensors_initialize();
   behavior_shake(40,10,motor_fullspeed);//hum
-  behavior_shake(40,5,motor_fullspeed);//hum
+  behavior_shake(80,5,motor_fullspeed);//hum
+  front_to_color();
+
+    for (size_t i = 0; i < 100; i++)
+    {
+      //String forwardDistaroonie = String(forward_distance());
+      String left_d = interpret_d(left_distance());
+      String front_d = interpret_d(forward_distance());
+      String right_d = interpret_d(right_distance());
+      String message4me = String(PIR());
+      //String message4me = String(prox2());
+      message4me = right_d + " " + front_d + " " + left_d;
+      crt_message_line(message4me);
+      delay(10);
+    }
+
   crt_greeting();
+  
   behavior_shake(40,12,motor_fullspeed);//
   behavior_shake(40,14,motor_fullspeed);//
   behavior_shake(40,16,motor_fullspeed);//
+
   //behavior_shake(50,20,motor_fullspeed);//machine gun
   //behavior_shake(25,40,motor_fullspeed);//washing machine
   blink();
