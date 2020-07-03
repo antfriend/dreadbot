@@ -12,9 +12,24 @@
 - (2x) proxdots <http://www.bittybot.com/index.php?pageId=ProxDot>
 */
 void sensors_initialize(){
-    pinMode(PROX1_PIN, INPUT);
-    pinMode(PROX2_PIN, INPUT_PULLUP);
+    pinMode(PROX1_PIN, OUTPUT);
+    pinMode(PROX2_PIN, OUTPUT);
     pinMode(PIR_PIN, INPUT);
+
+
+    // digitalWrite(PROX1_PIN,LOW);
+    // digitalWrite(PROX2_PIN,LOW);
+    // delay(500);
+    // digitalWrite(PROX1_PIN,HIGH);
+    // digitalWrite(PROX2_PIN,HIGH);
+    // delay(500);
+    // digitalWrite(PROX1_PIN,LOW);
+    // digitalWrite(PROX2_PIN,HIGH);
+    // delay(500);
+    // digitalWrite(PROX1_PIN,HIGH);
+    // digitalWrite(PROX2_PIN,LOW);
+    // delay(500);
+
 }
 
 int forward_distance(){

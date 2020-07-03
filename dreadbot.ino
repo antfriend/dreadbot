@@ -39,31 +39,50 @@ void front_to_color(){
 
   for (size_t i = 0; i < 1000; i++)
   {
-    int d;
-    d = forward_distance();
-    
+    int d = forward_distance();
+    int rad = map(d,50,500,1,64);
+
     if(d <= 50){
       //"far"
       tft.fillCircle(64, 64, 64, BLUE);
-      //tft.fillScreen(BLUE);
       continue;
     }
     if(d > 500){
       //"near"
-      
-      backward(motor_fullspeed);
-      tft.fillCircle(64, 64, 32, RED);
-      //delay(250);
-      stop();
+      backup_as_needed();
+      //backward(motor_fullspeed);
+      //tft.fillCircle(64, 64, 32, RED);
+      // for (int i = rad; i > rad-3; i--)
+      // {
+      //   tft.drawCircle(64, 64, i, RED);
+      // }
+      //tft.drawCircle(64, 64, rad, RED);
+      //stop();
+      //tft.fillCircle(64, 64, 64, RED);
+      tft.drawCircle(64, 64, rad, RED);
       continue;
     }
     //draw a green circle
-    int rad = map(d,50,500,1,64);
     tft.drawCircle(64, 64, rad, GREEN);
-    tft.drawCircle(64, 64, rad+1, BLACK);
-    tft.drawCircle(64, 64, rad-1, BLACK);
+    tft.drawCircle(64, 64, rad+1, MAGENTA);
+    tft.drawCircle(64, 64, rad-1, YELLOW);
     delay(16);//60 frames second
   }
+}
+
+void backup_as_needed(){
+  delay(50);
+  int d = forward_distance();
+  while ((d > 500))
+  {
+    /* near */
+    backward(motor_fullspeed);
+    delay(1);
+    stop();
+    // delay(10);
+    d = forward_distance();
+  }
+  stop();
 }
 
 void setup() {
