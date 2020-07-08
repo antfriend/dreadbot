@@ -346,33 +346,14 @@ void crt_testsequence(){
 }
 
 void crt_setup() {
+  /* HELLO! */
   Serial.begin(9600);
   Serial.print("hello!");
   tft.begin();
   Serial.println("init");
-
-  // You can optionally rotate the display by running the line below.
-  // Note that a value of 0 means no rotation, 1 means 90 clockwise,
-  // 2 means 180 degrees clockwise, and 3 means 270 degrees clockwise.
-  //tft.setRotation(1);
-  // NOTE: The test pattern at the start will NOT be rotated!  The code
-  // for rendering the test pattern talks directly to the display and
-  // ignores any rotation.
-
 }
 
-void blink(){
-  crt_message_line("  o   o");
-  delay(1000);
-  crt_simple_message_line("  -   -");
-  delay(10);
-  crt_message_line("  o   o");
-  delay(500);
-  crt_simple_message_line("  -   -");
-  delay(10);
-  crt_message_line("  o   o");
-  delay(1000);
-}
+
 
 void look_left(){
   crt_message_line("    o   o");
@@ -384,36 +365,4 @@ void look_middle(){
 
 void look_right(){
   crt_message_line("o   o");
-}
-
-void crt_greeting(){
-  //tft.fillRect(0, 0, 128, 128, BLACK);
-  tft.setCursor(10, 0);
-  tft.fillScreen(BLACK);
-  tft.setTextSize(2);
-  tft.setTextColor(GREEN);
-
-  tft.println(" ");
-  tft.println("==========");
-  tft.println("  hello! ");
-  tft.println("==========");
-  tft.println(" ");
-  tft.println(" \\(^o^)/");
-  delay(2000);
-  crt_clear_bottom_half();
-
-  look_middle();
-  delay(1000);
-
-  look_right();
-  delay(1000);
-
-  look_middle();
-  delay(1000);
-
-  look_left();
-  delay(1000);
-  blink();
-
-  
 }

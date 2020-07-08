@@ -37,7 +37,7 @@ String interpret_color(int d){
 
 void front_to_color(){
 
-  for (size_t i = 0; i < 1000; i++)
+  for (int i = 0; i < 100; i++)
   {
     int d = forward_distance();
     int rad = map(d,50,500,1,64);
@@ -49,16 +49,7 @@ void front_to_color(){
     }
     if(d > 500){
       //"near"
-      backup_as_needed();
-      //backward(motor_fullspeed);
-      //tft.fillCircle(64, 64, 32, RED);
-      // for (int i = rad; i > rad-3; i--)
-      // {
-      //   tft.drawCircle(64, 64, i, RED);
-      // }
-      //tft.drawCircle(64, 64, rad, RED);
-      //stop();
-      //tft.fillCircle(64, 64, 64, RED);
+      check_for_near(1);
       tft.drawCircle(64, 64, rad, RED);
       continue;
     }
@@ -66,12 +57,61 @@ void front_to_color(){
     tft.drawCircle(64, 64, rad, GREEN);
     tft.drawCircle(64, 64, rad+1, MAGENTA);
     tft.drawCircle(64, 64, rad-1, YELLOW);
-    delay(16);//60 frames second
+    check_for_near(8);
+    //delay(16);//60 frames second
   }
 }
 
+void blink(){
+  crt_message_line("  o   o");
+  check_for_near(500);
+  //delay(1000);
+  crt_simple_message_line("  -   -");
+  check_for_near(5);
+  //delay(10);
+  crt_message_line("  o   o");
+  check_for_near(250);
+  //delay(500);
+  crt_simple_message_line("  -   -");
+  check_for_near(5);
+  //delay(10);
+  crt_message_line("  o   o");
+  check_for_near(500);
+  //delay(1000);
+}
+
+void crt_greeting(){
+  //tft.fillRect(0, 0, 128, 128, BLACK);
+  tft.setCursor(10, 0);
+  tft.fillScreen(BLACK);
+  tft.setTextSize(2);
+  tft.setTextColor(GREEN);
+
+  tft.println(" ");
+  tft.println("==========");
+  tft.println("  hello! ");
+  tft.println("==========");
+  tft.println(" ");
+  tft.println(" \\(^o^)/");
+  delay(2000);
+  crt_clear_bottom_half();
+
+  look_middle();
+  delay(1000);
+
+  look_right();
+  delay(1000);
+
+  look_middle();
+  delay(1000);
+
+  look_left();
+  delay(1000);
+  blink();  
+}
+
 void backup_as_needed(){
-  delay(50);
+  delay(2);
   int d = forward_distance();
   while ((d > 500))
   {
@@ -79,10 +119,30 @@ void backup_as_needed(){
     backward(motor_fullspeed);
     delay(1);
     stop();
-    // delay(10);
     d = forward_distance();
   }
   stop();
+}
+
+void check_for_near(int how_many_times){
+  for (int i = 0; i < how_many_times; i++)
+  {
+    backup_as_needed();
+  }
+}
+
+void distance_report(){
+    for (size_t i = 0; i < 100; i++)
+    {
+      String left_d = interpret_d(left_distance());
+      String front_d = interpret_d(forward_distance());
+      String right_d = interpret_d(right_distance());
+      String message4me = String(PIR());
+      message4me = right_d + " " + front_d + " " + left_d;
+      crt_message_line(message4me);
+      check_for_near(10);
+      //delay(10);
+    }
 }
 
 void setup() {
@@ -91,20 +151,8 @@ void setup() {
   sensors_initialize();
   behavior_shake(40,10,motor_fullspeed);//hum
   behavior_shake(80,5,motor_fullspeed);//hum
-  front_to_color();
-
-    for (size_t i = 0; i < 100; i++)
-    {
-      //String forwardDistaroonie = String(forward_distance());
-      String left_d = interpret_d(left_distance());
-      String front_d = interpret_d(forward_distance());
-      String right_d = interpret_d(right_distance());
-      String message4me = String(PIR());
-      //String message4me = String(prox2());
-      message4me = right_d + " " + front_d + " " + left_d;
-      crt_message_line(message4me);
-      delay(10);
-    }
+  //front_to_color();
+  //distance_report();
 
   crt_greeting();
   
@@ -114,23 +162,27 @@ void setup() {
 
   //behavior_shake(50,20,motor_fullspeed);//machine gun
   //behavior_shake(25,40,motor_fullspeed);//washing machine
-  blink();
+  blinking(1);
   walk_forward(1);
-  blink();
+  blinking(1);
   walk_forward(2);
-  blink();
+  blinking(1);
   walk_backward(3);
-  blink();
+  blinking(1);
   spin_right(12);
-  blink();
-  blink();
-  blink();
+  blinking(3);
   spin_left(12);
-  blink();
-  blink();
-  blink();
+  blinking(3);
 }
 
+void blinking(int how_many_times){
+  for (int i = 0; i < how_many_times; i++)
+  {
+    check_for_near(1);
+    blink();
+  }
+  
+}
 void loop() {
   random_behavior();
   random_delay();
@@ -141,19 +193,25 @@ void loop() {
 behaviors
 */
 void random_behavior(){
-  long count_of_things = 3;
+  long count_of_things = 6;
   long random_thing = random(0,count_of_things);
   switch (random_thing)
   {
-  case 1:
-    sequence1();
-    break;
+    case 1:
+      sequence1();
+      break;
     case 2:
-    check_left();
-    break;
+      check_left();
+      break;
     case 3:
-    behavior_shake(4,50,motor_halfspeed);;
-    break;
+      behavior_shake(4,50,motor_halfspeed);;
+      break;
+    case 4:
+      front_to_color();
+      break;
+    case 5:
+      distance_report();
+      break;
   default:
     crt_wait();
     random_delay();
@@ -171,7 +229,9 @@ void sequence1(){
 }
 
 void random_delay(){
-  delay(random(1000,10000));
+  int random_times = random(100,800);
+  check_for_near(random_times);
+  //delay(random(100,10000));
 }
 
 void spin_right(int how_many){
