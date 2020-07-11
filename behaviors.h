@@ -173,11 +173,12 @@ void crt_greeting(){
   tft.setTextColor(GREEN);
 
   tft.println("greetings");
-  tft.println("  human");
+  tft.println("   human");
   tft.println("");
-  tft.println("  I AM");
+  tft.println("   I AM");
   tft.println("");
-  tft.println(" DREADBOT");
+  tft.setTextSize(3);
+  tft.println("DREDBOT");
 }
 
 void blinking(int how_many_times){
@@ -204,6 +205,9 @@ void look_around(){
 }
 
 void distance_report(){
+    tft.setCursor(0, 0);
+    tft.setTextColor(WHITE);
+    tft.setTextSize(1);
     for (size_t i = 0; i < 100; i++)
     {
       String left_d = interpret_d(left_distance());

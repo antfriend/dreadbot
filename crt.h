@@ -287,7 +287,7 @@ void crt_message_line(String message_line){
 
 void crt_expression_line(String expression_line){
   crt_clear_bottom_half();
-  tft.setCursor(8, 72);
+  tft.setCursor(8, 80);
   tft.println(expression_line);
 }
 
