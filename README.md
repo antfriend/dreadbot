@@ -12,4 +12,4 @@ https://learn.adafruit.com/adafruit-1-5-color-oled-breakout-board/wiring-and-tes
 - Cytron 2A Motor Driver Shield Q101 
 - (3x) Sharp distance measuring sensor gp2y0a21yk https://global.sharp/products/device/lineup/data/pdf/datasheet/gp2y0a21yk_e.pdf
 - RadioShack PIR sensor
-- (2x) proxdots <http://www.bittybot.com/index.php?pageId=ProxDot>
+- 6 bullet turret gun from an old quad copter
