@@ -276,14 +276,19 @@ void crt_clear_message_line(){
 }
 
 void crt_simple_message_line(String message_line){
-  tft.setCursor(8, 32);
+  tft.setCursor(0, 32);
   tft.println(message_line);
 }
 
 void crt_message_line(String message_line){
-  //tft.setTextColor(GREEN);
   crt_clear_message_line();
   crt_simple_message_line(message_line);
+}
+
+void crt_expression_line(String expression_line){
+  crt_clear_bottom_half();
+  tft.setCursor(8, 72);
+  tft.println(expression_line);
 }
 
 void crt_testsequence(){
