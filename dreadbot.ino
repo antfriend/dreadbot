@@ -34,7 +34,7 @@ void setup() {
 
 String random_phrase(){
   String the_message;
-  int rando = random(0,6);
+  int rando = random(0,7);
   switch (rando)
   {
   case 0:
