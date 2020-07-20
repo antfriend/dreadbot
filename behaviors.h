@@ -2,11 +2,9 @@
 #include "crt.h"
 #include "sensors.h"
 
-
 // int motor_slowspeed = 96;
 // int motor_halfspeed = 127;
 // int motor_fullspeed = 255;
-
 
 void angry_eyes(){
     tft.fillScreen(BLACK);
@@ -108,6 +106,7 @@ void backup_as_needed(){
     stop();
     angry_eyes();
     machine_gun_shake();
+    FireOne();
     delay(3000);
     nuetral_eyes();
   }
@@ -178,6 +177,7 @@ void crt_greeting(){
   tft.println("   I AM");
   tft.println("");
   tft.setTextSize(3);
+  tft.setTextColor(YELLOW); 
   tft.println("DREDBOT");
 }
 
@@ -220,8 +220,6 @@ void distance_report(){
     }
 }
 
-
-
 void check_right(){
     crt_message_line("right");
     right(motor_fullspeed);
@@ -248,7 +246,6 @@ void check_left(){
     crt_message_line(" . .");
     delay(100);
 }
-
 
 void sequence1(){
   crt_message_line("seq 1");
@@ -320,4 +317,91 @@ void say_something(String something){
     crt_expression_line(something);
 }
 
+/* 
+  Matrix face stuff 
+*/
+
+String rnd_O_char(){
+  int randy = random(0,7);
+  switch (randy)
+  {
+  case 0:
+    return " ";
+    break;
+  case 1:
+    return "o";
+    break;
+  case 2:
+    return "=";
+    break;
+  case 3:
+    return "@";
+    break;
+  case 4:
+    return "|";
+    break;
+  
+  default:
+    return " ";
+    break;
+  }
+}
+
+int rando_column_length(){
+  int io = random(0,1);
+  if(io == 0){
+    return 0;
+  }
+  io = random(1,8);
+  return io;
+}
+
+void the_matrix_has_you(){
+  
+  int columnals = 10;
+  int columns[columnals];
+  int my_y = 0;
+  int my_x = 0;
+
+  for (int c = 0; c < columnals; c++)
+  {
+    columns[c] = rando_column_length();
+  }
+
+  my_y = 1;
+  for (int the_Row = 0; the_Row < 128; the_Row=the_Row+16)
+  {
+    
+    my_x = 0;
+    for (int coluCount = 0; coluCount < columnals-2; coluCount++)
+    {
+      if (columns[coluCount] > 0)
+      {
+        tft.setCursor(my_x, the_Row);
+        tft.print(rnd_O_char());
+      }else{
+        tft.setCursor(my_x, the_Row);
+        tft.print(rnd_O_char());
+      }
+      my_x = my_x + 16;
+      //my_y = my_y + 2;
+      //tft.print(my_y);
+      delay(20);
+    }
+    //my_y = my_y + 10;
+    //tft.println(" it ");
+    //tft.println(rnd_O_char());
+    //delay(100);
+  }
+}
+
+void matrix_face(){
+  tft.fillScreen(BLACK);
+  tft.setTextSize(2);
+  tft.setTextColor(GREEN);
+  for (int i = 0; i < 3; i++)
+  {
+    the_matrix_has_you();
+  }
+}
 
