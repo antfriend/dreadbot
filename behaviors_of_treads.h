@@ -74,3 +74,9 @@ void spin_left(int how_many){
     stop();
   }
 }
+
+void extreme_happy_spin(){
+  spin_right(12);
+  buzz_shake();
+  spin_left(12);
+}

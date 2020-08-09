@@ -3,6 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
+                "C:\\Program Files (x86)\\Arduino\\libraries\\TimerOne",
                 "${workspaceFolder}**",
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/cytrondriver/**",
