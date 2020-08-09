@@ -1,6 +1,8 @@
-#include "motors.h"
+
 #include "crt.h"
 #include "sensors.h"
+#include "behaviors_of_treads.h"
+
 
 // int motor_slowspeed = 96;
 // int motor_halfspeed = 127;
@@ -34,15 +36,35 @@ void nuetral_eyes(){
     tft.println("==========");
 }
 
-void behavior_shake(int shaketimes, int turn_duration, int turn_speed){
-  for(int i = 1; i <= shaketimes; i++ ){
-    right(turn_speed);
-    delay(turn_duration);
-    stop();
-    left(turn_speed);
-    delay(turn_duration);  
-    stop();
-  }
+void calming_down(){
+    int atX = 30;
+    tft.fillScreen(BLACK);
+    tft.setTextSize(3);
+    tft.setCursor(0, atX);
+    tft.setTextColor(YELLOW);
+    tft.println(" =   =");
+    delay(3000);
+    tft.fillScreen(BLACK);
+    tft.setCursor(0, atX);
+    tft.println(" O   O");
+    tft.println("   o");
+    delay(1000);
+    tft.setCursor(0, atX);
+    //tft.fillScreen(BLACK);
+    tft.println(" =   =");
+    //tft.println("   ~");
+    delay(1);
+    tft.fillScreen(BLACK);
+    tft.setCursor(0, atX);
+    tft.println(" O  O");
+    tft.println("   ~");
+    delay(1000);
+    tft.fillScreen(BLACK);
+    tft.setTextSize(10);
+    tft.setCursor(0, atX);
+    tft.setTextColor(GREEN);
+    tft.println(":P");
+    delay(1000);
 }
 
 String interpret_d(int d){
@@ -67,35 +89,12 @@ String interpret_color(int d){
   return d_result;
 }
 
-void hum_shake(){
-    behavior_shake(80,5,motor_fullspeed);
-}
-void buzz_shake(){
-  behavior_shake(40,10,motor_fullspeed);
-}
-
-void whirr_shake(){
-  behavior_shake(40,14,motor_fullspeed);//
-}
-
-void grumble_shake(){
-  behavior_shake(40,16,motor_fullspeed);//
-}
-
-void machine_gun_shake(){
-  behavior_shake(40,20,motor_fullspeed);//machine gun
-}
-
-void washing_machine_shake(){
-  behavior_shake(20,40,motor_fullspeed);//washing machine
-}
-
 
 void backup_as_needed(){
   delay(2);
   int d = forward_distance();
   if(d>500){
-    while ((d > 500))
+    while ((d > 400))
     {
         /* near */
         backward(motor_fullspeed);
@@ -105,9 +104,16 @@ void backup_as_needed(){
     }
     stop();
     angry_eyes();
-    machine_gun_shake();
+    //machine_gun_shake();
+    //machine_gun_shake();
+    walk_forward(1);
     FireOne();
+    washing_machine_shake();
+    machine_gun_shake();
+    step_forward_left();
+    //step_backward_right();
     delay(3000);
+    calming_down();
     nuetral_eyes();
   }
 
@@ -262,43 +268,6 @@ void random_delay(){
   //delay(random(100,10000));
 }
 
-void spin_right(int how_many){
-  for (size_t i = 0; i < how_many; i++)
-  {
-    right(motor_fullspeed);
-    delay(60);
-    stop();
-  }
-}
-
-void spin_left(int how_many){
-  for (size_t i = 0; i < how_many; i++)
-  {
-    left(motor_fullspeed);
-    delay(60);
-    stop();
-  }
-}
-
-void walk_forward(int how_many_steps){
-  for (int i = 0; i < how_many_steps; i++)
-  {
-    step_forward_right();
-    delay(250);
-    step_forward_left();
-    delay(250);
-  }
-}
-
-void walk_backward(int how_many_steps){
-  for (int i = 0; i < how_many_steps; i++){
-    step_backward_right();
-    delay(250);
-    step_backward_left();
-    delay(250);
-  }
-}
-
 void steppin_out(){
   blinking(1);
   walk_forward(1);
@@ -399,7 +368,7 @@ void matrix_face(){
   tft.fillScreen(BLACK);
   tft.setTextSize(2);
   tft.setTextColor(GREEN);
-  for (int i = 0; i < 3; i++)
+  for (int i = 0; i < 5; i++)
   {
     the_matrix_has_you();
   }

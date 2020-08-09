@@ -21,6 +21,7 @@ void setup() {
   tft.setTextColor(RED); 
   tft.println("DREDBOT");
   washing_machine_shake();
+  step_forward_left();
   delay(2000);
 }
 
